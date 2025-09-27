@@ -106,5 +106,3 @@ docker ps -a
 - Jeśli chcesz mieć różne kontenery PostgreSQL, nadaj im różne nazwy (`--name`) i różne porty lokalne (`-p`).
 
 ```
-
-```
