@@ -104,5 +104,3 @@ docker ps -a
 
 - Zmienna środowiskowa **POSTGRES_PASSWORD** musi być zawsze ustawiona przy pierwszym uruchomieniu kontenera z nową bazą.
 - Jeśli chcesz mieć różne kontenery PostgreSQL, nadaj im różne nazwy (`--name`) i różne porty lokalne (`-p`).
-
-```
