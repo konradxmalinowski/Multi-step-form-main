@@ -1,0 +1,21 @@
+@use "./default.scss";
+
+app-step1,
+app-step2,
+app-step3,
+app-step4,
+app-finish {
+  width: 1000px;
+  background-color: white;
+  border-radius: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar {
+  position: relative;
+
+  img {
+    z-index: 1;
+  }
+}

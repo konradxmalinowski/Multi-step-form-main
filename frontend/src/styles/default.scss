@@ -1,0 +1,25 @@
+@use "./variables.scss" as v;
+@use "./mixins.scss" as m;
+
+@font-face {
+  font-family: "Ubuntu";
+  src: url("./fonts/Ubuntu-Regular.ttf");
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Ubuntu";
+}
+
+body,
+app-root {
+  background-color: v.$blue-100;
+  min-height: 100svh;
+  width: 100%;
+  font-size: v.$font-size-body;
+}
+
+app-root {
+  @include m.flexBox();
+}
