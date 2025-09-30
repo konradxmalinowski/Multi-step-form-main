@@ -1,1 +1,8 @@
-<p>input works!</p>
+<label class="input__label">
+  <span class="input__bold">{{ label }}</span>
+  <input
+    [type]="type"
+    [ngClass]="label.replaceAll(' ', '-')"
+    onchange="handleChangeValue($event)"
+  />
+</label>
