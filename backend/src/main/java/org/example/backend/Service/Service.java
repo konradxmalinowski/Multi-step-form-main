@@ -7,6 +7,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+
+import java.util.List;
 import java.util.Optional;
 
 @org.springframework.stereotype.Service
@@ -34,26 +36,20 @@ public class Service {
         }
     }
 
-//    public ResponseEntity<?> updateForm(Optional<String> name, Optional<String> email, Optional<String> phoneNnumber, Optional. Integer id) {
-//        Optional<Form> foundForm;
-//        try {
-//            foundForm = repository.findById(id);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//
-//        if (foundForm.isEmpty()) {
-//            System.out.println("User was not found");
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        foundForm.get().setName(form.getName());
-//
-//        try {
-//            repository.save(foundForm.get());
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        } catch (DataAccessException e) {
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    public ResponseEntity<List<FormDTO>> getAllForms() {
+        List<FormDTO> forms;
+
+        try {
+            forms = repository.findAll().stream().map(form -> new FormDTO(form.getId(), form.getName())).toList();
+
+            if (forms.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(forms, HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println("Failed to get forms. Error message: " + e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
