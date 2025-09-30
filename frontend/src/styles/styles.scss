@@ -1,4 +1,8 @@
 @use "./default.scss";
+@use "./variables.scss" as v;
+@use "./mixins.scss" as m;
+
+// step component
 
 app-step {
   width: 1000px;
@@ -6,12 +10,21 @@ app-step {
   border-radius: 20px;
   padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  column-gap: 40px;
 }
 
-.sidebar {
-  position: relative;
+app-hero {
+  width: 100%;
+  @include m.flexBox(column);
+  row-gap: 10px;
 
-  img {
-    z-index: 1;
+  h1 {
+    color: v.$blue-950;
+  }
+
+  p {
+    color: v.$grey-500;
   }
 }
