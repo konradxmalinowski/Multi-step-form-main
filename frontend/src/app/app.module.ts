@@ -7,21 +7,24 @@ import { GoBackButtonComponent } from './shared/UI/go-back-button/go-back-button
 import { InputComponent } from './shared/UI/input/input.component';
 import { NextButtonComponent } from './shared/UI/next-button/next-button.component';
 import { StepComponent } from './step/step.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HeroComponent } from './shared/ui/hero/hero.component'
 
 
 @NgModule({
   declarations: [
     AppComponent,
-
     InputComponent,
     CheckboxComponent,
     NextButtonComponent,
     NextButtonComponent,
     GoBackButtonComponent,
-    StepComponent
+    StepComponent,
+    HeroComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
