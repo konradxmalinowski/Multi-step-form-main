@@ -1,0 +1,21 @@
+@use "../../../styles/variables.scss" as v;
+
+.input__label {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: v.$blue-950;
+
+  .input__bold {
+    font-weight: 500;
+  }
+
+  input {
+    width: 80%;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: 1px solid v.$grey-500;
+    margin-top: 5px;
+  }
+}

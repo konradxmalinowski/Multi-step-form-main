@@ -1,0 +1,32 @@
+@use "../../../styles/variables.scss" as v;
+
+button {
+  border: 1px solid v.$grey-500;
+  border-radius: 8px;
+  width: 160px;
+  padding: 20px;
+  background-color: transparent;
+  font-size: 17px;
+
+  img {
+    margin-bottom: 10px;
+  }
+
+  .bold {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .grey {
+    color: v.$grey-500;
+    margin-bottom: 6px;
+  }
+
+  .blue {
+    color: v.$blue-950;
+  }
+
+  .border {
+    border-color: v.$blue-950;
+  }
+}

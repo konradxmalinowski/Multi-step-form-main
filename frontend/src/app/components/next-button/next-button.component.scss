@@ -1,0 +1,41 @@
+@use "../../../styles/variables.scss" as v;
+
+@mixin transition-color {
+  transition: color 0.1s ease-in-out 0s, font-weight 0.1s ease-in-out 0s;
+}
+
+@mixin transition-transform {
+  transition: transform 0.2s ease-in-out 0s;
+}
+
+button {
+  padding: 16px;
+  font: {
+    size: 16px;
+    weight: 500;
+  }
+}
+
+:host(.next-step-button) button {
+  color: v.$white;
+  background-color: v.$blue-950;
+  border-radius: 7px;
+  @include transition-transform();
+
+  &:hover {
+    transform: scale(1.1);
+    @include transition-transform();
+  }
+}
+
+:host(.go-back-button) button {
+  background-color: transparent;
+  color: v.$grey-500;
+  @include transition-color();
+
+  &:hover {
+    color: v.$blue-950;
+    font-weight: 500;
+    @include transition-color();
+  }
+}

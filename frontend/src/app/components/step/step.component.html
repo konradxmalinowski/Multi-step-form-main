@@ -1,0 +1,95 @@
+<section class="sidebar">
+  <img src="../../assets/images/bg-sidebar-desktop.svg" alt="desktop sidebar" />
+  <div class="steps-list__container">
+    <div class="step-list-item" *ngFor="let step of steps">
+      <div
+        class="step-item__circle"
+        [ngClass]="step.id === formState ? 'step-item__circle--active' : ''"
+      >
+        {{ step.id }}
+      </div>
+      <div>
+        <span class="step-item__title">STEP {{ step.id }}</span>
+        <span class="step_item__description">{{ step.description }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="main-content">
+  <ng-container *ngIf="formState == 1">
+    <app-hero
+      heading="Personal info"
+      description="Please provide your name, email address and phone number."
+    />
+    <div class="inputs">
+      <app-input
+        label="Name"
+        type="text"
+        (handleChange)="handleChangeData('name', $event)"
+      />
+      <app-input
+        label="Email Address"
+        type="email"
+        (handleChange)="handleChangeData('email', $event)"
+      />
+      <app-input
+        label="Phone Number"
+        type="number"
+        (handleChange)="handleChangeData('phoneNumber', $event)"
+      />
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="formState === 2">
+    <app-hero
+      heading="Select your plan"
+      description="You have the option of monthly or yearly billing"
+    />
+    <div class="checkboxes">
+      <app-checkbox
+        label="Arcade"
+        icon="../../../assets/images/icon-arcade.svg"
+        [price]="data.planType === billingTypes.monthly ? '$9/mo' : '$90/yr'"
+        [bonus]="data.planType === billingTypes.yearly"
+        (click)="toggleCheckbox(1)"
+        [isChecked]="isCheckedCheckbox1"
+      />
+      <app-checkbox
+        label="Advanced"
+        icon="../../../assets/images/icon-advanced.svg"
+        [price]="data.planType === billingTypes.monthly ? '$12/mo' : '$120/yr'"
+        [bonus]="data.planType === billingTypes.yearly"
+        (click)="toggleCheckbox(2)"
+        [isChecked]="isCheckedCheckbox2"
+      />
+      <app-checkbox
+        label="Pro"
+        icon="../../../assets/images/icon-pro.svg"
+        [price]="data.planType === billingTypes.monthly ? '$15/mo' : '$150/yr'"
+        [bonus]="data.planType === billingTypes.yearly"
+        (click)="toggleCheckbox(3)"
+        [isChecked]="isCheckedCheckbox3"
+      />
+    </div>
+    <div class="billing-type-panel">
+      <span>Monthly</span>
+      <mat-span-toggle [(ngModel)]="data.planType"> </mat-span-toggle>
+      <span>Yearly</span>
+    </div>
+  </ng-container>
+
+  <div>
+    <app-next-button
+      label="Go Back"
+      class="go-back-button"
+      (click)="previousStep()"
+      *ngIf="formState !== 1"
+    />
+    <app-next-button
+      label="Next Step"
+      class="next-step-button"
+      (click)="nextStep()"
+    />
+  </div>
+</section>
