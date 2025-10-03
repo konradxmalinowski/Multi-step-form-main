@@ -23,3 +23,8 @@ app-root {
 app-root {
   @include m.flexBox();
 }
+
+button {
+  border: none;
+  cursor: pointer;
+}
