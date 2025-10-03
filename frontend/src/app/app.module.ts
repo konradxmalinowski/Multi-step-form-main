@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { CheckboxComponent } from './shared/UI/checkbox/checkbox.component';
-import { GoBackButtonComponent } from './shared/UI/go-back-button/go-back-button.component';
-import { InputComponent } from './shared/UI/input/input.component';
-import { NextButtonComponent } from './shared/UI/next-button/next-button.component';
-import { StepComponent } from './step/step.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { GoBackButtonComponent } from './components/go-back-button/go-back-button.component';
+import { InputComponent } from './components/input/input.component';
+import { NextButtonComponent } from './components/next-button/next-button.component';
+import { StepComponent } from './components/step/step.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HeroComponent } from './shared/ui/hero/hero.component'
+import { HeroComponent } from './components/hero/hero.component'
 
 
 @NgModule({
@@ -20,7 +20,7 @@ import { HeroComponent } from './shared/ui/hero/hero.component'
     NextButtonComponent,
     GoBackButtonComponent,
     StepComponent,
-    HeroComponent
+    HeroComponent,
   ],
   imports: [
     BrowserModule,
