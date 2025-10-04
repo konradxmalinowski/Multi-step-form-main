@@ -26,17 +26,20 @@
       <app-input
         label="Name"
         type="text"
-        (handleChange)="handleChangeData('name', $event)"
+        (handleChange)="handleChangeData(PropertiesNames.name, $event)"
+        [message]="inputNameMessage"
       />
       <app-input
         label="Email Address"
         type="email"
-        (handleChange)="handleChangeData('email', $event)"
+        (handleChange)="handleChangeData(PropertiesNames.email, $event)"
+        [message]="inputEmailMessage"
       />
       <app-input
         label="Phone Number"
         type="number"
-        (handleChange)="handleChangeData('phoneNumber', $event)"
+        (handleChange)="handleChangeData(PropertiesNames.phoneNumber, $event)"
+        [message]="inputPhoneNumberMessage"
       />
     </div>
   </ng-container>
@@ -74,7 +77,13 @@
     </div>
     <div class="billing-type-panel">
       <span>Monthly</span>
-      <mat-span-toggle [(ngModel)]="data.planType"> </mat-span-toggle>
+      <mat-slide-toggle
+        (change)="
+          $event.checked
+            ? (data.planType = billingTypes.yearly)
+            : (data.planType = billingTypes.monthly)
+        "
+      ></mat-slide-toggle>
       <span>Yearly</span>
     </div>
   </ng-container>

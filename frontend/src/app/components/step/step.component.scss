@@ -76,3 +76,15 @@
   column-gap: 20px;
   flex-wrap: wrap;
 }
+
+mat-slide-toggle {
+  margin-inline: 10px;
+}
+
+.billing-type-panel {
+  width: 400px;
+  background-color: v.$background;
+  padding: 20px 20px;
+  border-radius: 5px;
+  @include m.flexBox();
+}
