@@ -16,3 +16,5 @@ export type ResponseForm = {
     id: number,
     name: string
 };
+
+export type state = 1 | 2 | 3 | 4; 
