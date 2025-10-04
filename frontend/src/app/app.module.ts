@@ -9,6 +9,8 @@ import { NextButtonComponent } from './components/next-button/next-button.compon
 import { StepComponent } from './components/step/step.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HeroComponent } from './components/hero/hero.component'
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { HeroComponent } from './components/hero/hero.component'
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]
