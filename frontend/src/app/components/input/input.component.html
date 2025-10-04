@@ -2,7 +2,8 @@
   <span class="input__bold">{{ label }}</span>
   <input
     [type]="type"
-    [ngClass]="label.replaceAll(' ', '-')"
+    [class.message]="'red'"
     onchange="handleChangeValue($event)"
   />
+  <p class="red">{{ errorMessage }}</p>
 </label>

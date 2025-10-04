@@ -9,6 +9,11 @@ export class InputComponent {
   @Input() label: string = '';
   @Input() type: string = 'text';
   @Output() handleChange = new EventEmitter<string>();
+  @Input() message: string | null = null;
+
+  get errorMessage(): string | null {
+    return this.message;
+  }
 
   handleChangeValue(event: Event) {
     const input = event.target as HTMLInputElement;
