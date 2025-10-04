@@ -8,25 +8,32 @@ button {
   background-color: transparent;
   font-size: 17px;
 
+  transition: background-color 0.1s ease-in-out 0s;
+
   img {
     margin-bottom: 10px;
   }
 
-  .bold {
-    font-weight: 600;
-    margin-bottom: 6px;
+  &:hover {
+    background-color: v.$background;
+    transition: background-color 0.1s ease-in-out 0s;
   }
+}
 
-  .grey {
-    color: v.$grey-500;
-    margin-bottom: 6px;
-  }
+.bold {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
 
-  .blue {
-    color: v.$blue-950;
-  }
+.grey {
+  color: v.$grey-500;
+  margin-top: 6px;
+}
 
-  .border {
-    border-color: v.$blue-950;
-  }
+.blue {
+  color: v.$purple-600;
+}
+
+.border {
+  border-color: v.$purple-600;
 }
