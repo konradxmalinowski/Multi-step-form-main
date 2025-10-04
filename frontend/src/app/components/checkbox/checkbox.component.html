@@ -1,6 +1,6 @@
-<button [ngClass]="isChecked ? 'border' : undefined">
+<button [ngClass]="hasBlueBorder ? 'border' : undefined">
   <img [src]="icon" [alt]="label + ' icon'" />
   <p class="bold">{{ label }}</p>
-  <p class="grey">{{ price }}</p>
-  <p class="blue" *ngIf="hasBlueBorder">2 months free</p>
+  <p class="grey">{{ changedPrice }}</p>
+  <p class="blue" *ngIf="isYearly && isChecked">2 months free</p>
 </button>
