@@ -1,7 +1,7 @@
 export enum billingTypes {
-    monthly, yearly
+    monthly = 'monthly', yearly = 'yearly'
 }
 
 export enum planTypes {
-    arcade, advanced, pro
+    arcade = 'arcade', advanced = 'advanced', pro = 'pro'
 }
