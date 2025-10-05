@@ -30,27 +30,13 @@ export class LocalStorageService {
         });
     }
 
-    private checkIfStateExists() {
-        if (localStorage.getItem('formState')) return true;
-        return false;
-    }
-
-    addToLocalStorage(formState: state) {
-        localStorage.setItem('formState', JSON.stringify(formState));
-    }
-
-    getStateFromLocalStorage(): state {
-        if (this.checkIfStateExists())
-            return Number(localStorage.getItem('formState')) as state;
-        return 1;
-    }
-
-    savePropertyToLocalStorage(propertyName: PropertiesNames, value: any) {
+    savePropertyToLocalStorage(propertyName: PropertiesNames | string, value: any) {
         localStorage.setItem(propertyName.toString(), JSON.stringify(value));
     }
 
-    getPropertyFromLocalstorage(propertyName: PropertiesNames): any {
+    getPropertyFromLocalstorage(propertyName: PropertiesNames | string): any {
         const returnedValue = localStorage.getItem(propertyName.toString());
+
         if (returnedValue === null) return null;
         try {
             return JSON.parse(returnedValue);
