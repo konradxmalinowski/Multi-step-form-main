@@ -2,8 +2,9 @@
   <span class="input__bold">{{ label }}</span>
   <input
     [type]="type"
-    [class.message]="'red'"
-    onchange="handleChangeValue($event)"
+    [class.error]="message"
+    (change)="handleChangeValue($event)"
+    [defaultValue]="defaultValue"
   />
   <p class="red">{{ errorMessage }}</p>
 </label>

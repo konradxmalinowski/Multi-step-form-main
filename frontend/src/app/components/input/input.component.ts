@@ -10,9 +10,14 @@ export class InputComponent {
   @Input() type: string = 'text';
   @Output() handleChange = new EventEmitter<string>();
   @Input() message: string | null = null;
+  @Input() defaultValue = '';
 
   get errorMessage(): string | null {
     return this.message;
+  }
+
+  get getDefaultValue(): string {
+    return this.defaultValue;
   }
 
   handleChangeValue(event: Event) {
