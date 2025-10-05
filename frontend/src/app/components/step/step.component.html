@@ -124,20 +124,62 @@
     </section>
   </ng-container>
 
-  <ng-container *ngSwitchCase="4"> </ng-container>
+  <ng-container *ngSwitchCase="4">
+    <img src="../../../assets/images/icon-thank-you.svg" alt="icon thank you" />
+    <app-hero class="center" heading="Thank you!" />
+    <div class="summary">
+      <h2>Summary</h2>
+      <p>
+        Your name: <span class="bold">{{ data.name }}</span>
+      </p>
+      <p>
+        Your email: <span class="bold">{{ data.email }}</span>
+      </p>
+      <p>
+        Your phone number: <span class="bold">{{ data.phoneNumber }}</span>
+      </p>
+
+      <p>
+        Online service
+        <span class="bold">{{ data.onlineService ? "✅" : "❌" }}</span>
+      </p>
+      <p>
+        Customizable profile
+        <span class="bold">{{ data.customizableProfile ? "✅" : "❌" }}</span>
+      </p>
+      <p>
+        Larger storage
+        <span class="bold">{{ data.largerStorage ? "✅" : "❌" }}</span>
+      </p>
+
+      <p>
+        Plan: <span class="bold">{{ data.plan }}</span>
+      </p>
+      <p>
+        Billing type: <span class="bold">{{ data.planType }}</span>
+      </p>
+    </div>
+    <app-button class="next-step-button" (click)="reset()" label="Reset" />
+  </ng-container>
 
   <div>
     <app-button
       label="Go Back"
       class="go-back-button"
       (click)="previousStep()"
-      *ngIf="formState !== 1"
+      *ngIf="formState !== 1 && formState !== 4 && formState !== 3"
     />
     <app-button
       label="Next Step"
       class="next-step-button"
       (click)="nextStep()"
-      *ngIf="formState !== 4"
+      *ngIf="formState !== 4 && formState !== 3"
+    />
+    <app-button
+      label="Submit"
+      class="next-step-button"
+      (click)="submit()"
+      *ngIf="formState === 3"
     />
   </div>
 </section>

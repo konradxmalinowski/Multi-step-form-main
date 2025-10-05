@@ -14,7 +14,7 @@ import { PropertiesNames } from 'src/app/enums/localStorage.enums';
 export class StepComponent {
   constructor(private localStorageService: LocalStorageService, private formService: FormService) { }
 
-  formState: state = this.localStorageService.getStateFromLocalStorage();
+  formState: state = this.localStorageService.getPropertyFromLocalstorage('formState');
   steps = STEPS_LIST;
   billingTypes = billingTypes;
   planTypes = planTypes;
@@ -93,6 +93,29 @@ export class StepComponent {
     return true;
   }
 
+  submit() {
+    try {
+      this.formService.insertForm(this.data).subscribe({
+        next: (response) => {
+          console.log('Successfully added: ', response);
+          this.nextStep();
+        },
+        error: (error) => {
+          if (error instanceof Error) console.log(error.message);
+          else console.log("Failed to insert form");
+        },
+      })
+    } catch (error) {
+      if (error instanceof Error) console.log(error.message);
+      else console.log("Failed to insert form");
+    }
+  }
+
+  reset() {
+    this.localStorageService.resetAllLocalStorageProperties();
+    this.formState = 1;
+  }
+
 
   nextStep() {
     if (!this.validateInsertedData()) {
@@ -101,14 +124,14 @@ export class StepComponent {
 
     if (this.formState < 4) {
       this.formState++;
-      this.localStorageService.addToLocalStorage(this.formState as state);
+      this.localStorageService.savePropertyToLocalStorage('formState', this.formState as state);
     }
   }
 
   previousStep() {
     if (this.formState > 1) {
       this.formState--;
-      this.localStorageService.addToLocalStorage(this.formState as state);
+      this.localStorageService.savePropertyToLocalStorage('formState', this.formState as state);
     };
   }
 }
