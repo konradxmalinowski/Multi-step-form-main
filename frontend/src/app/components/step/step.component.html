@@ -16,8 +16,8 @@
   </div>
 </section>
 
-<section class="main-content">
-  <ng-container *ngIf="formState == 1">
+<section class="main-content" [ngSwitch]="formState">
+  <ng-container *ngSwitchCase="1">
     <app-hero
       heading="Personal info"
       description="Please provide your name, email address and phone number."
@@ -28,23 +28,26 @@
         type="text"
         (handleChange)="handleChangeData(PropertiesNames.name, $event)"
         [message]="inputNameMessage"
+        [defaultValue]="data.name"
       />
       <app-input
         label="Email Address"
         type="email"
         (handleChange)="handleChangeData(PropertiesNames.email, $event)"
         [message]="inputEmailMessage"
+        [defaultValue]="data.email"
       />
       <app-input
         label="Phone Number"
-        type="number"
+        type="tel"
         (handleChange)="handleChangeData(PropertiesNames.phoneNumber, $event)"
         [message]="inputPhoneNumberMessage"
+        [defaultValue]="data.phoneNumber"
       />
     </div>
   </ng-container>
 
-  <ng-container *ngIf="formState === 2">
+  <ng-container *ngSwitchCase="2">
     <app-hero
       heading="Select your plan"
       description="You have the option of monthly or yearly billing"
@@ -56,7 +59,7 @@
         [price]="data.planType === billingTypes.monthly ? '$9/mo' : '$90/yr'"
         [bonus]="data.planType === billingTypes.yearly"
         (click)="toggleCheckbox(1)"
-        [isChecked]="isCheckedCheckbox1"
+        [isChecked]="data.plan === planTypes.arcade"
       />
       <app-checkbox
         label="Advanced"
@@ -64,7 +67,7 @@
         [price]="data.planType === billingTypes.monthly ? '$12/mo' : '$120/yr'"
         [bonus]="data.planType === billingTypes.yearly"
         (click)="toggleCheckbox(2)"
-        [isChecked]="isCheckedCheckbox2"
+        [isChecked]="data.plan === planTypes.advanced"
       />
       <app-checkbox
         label="Pro"
@@ -72,33 +75,69 @@
         [price]="data.planType === billingTypes.monthly ? '$15/mo' : '$150/yr'"
         [bonus]="data.planType === billingTypes.yearly"
         (click)="toggleCheckbox(3)"
-        [isChecked]="isCheckedCheckbox3"
+        [isChecked]="data.plan === planTypes.pro"
       />
     </div>
     <div class="billing-type-panel">
       <span>Monthly</span>
       <mat-slide-toggle
+        [checked]="data.planType === billingTypes.yearly"
         (change)="
           $event.checked
-            ? (data.planType = billingTypes.yearly)
-            : (data.planType = billingTypes.monthly)
+            ? handleChangeData(PropertiesNames.planType, billingTypes.yearly)
+            : handleChangeData(PropertiesNames.planType, billingTypes.monthly)
         "
       ></mat-slide-toggle>
       <span>Yearly</span>
     </div>
   </ng-container>
 
+  <ng-container *ngSwitchCase="3">
+    <app-hero
+      heading="Pick add-ons"
+      description="Add-ons help enhance your gaming experience"
+    />
+    <section class="add-ons">
+      <app-add-on
+        label="Online service"
+        description="Access to multiplayer games"
+        price="+1$/mo"
+        [isChecked]="data.onlineService"
+        (handleClick)="handleChangeData(PropertiesNames.onlineService, $event)"
+      />
+      <app-add-on
+        label="Larger storage"
+        description="Extra 1TB of cloud save"
+        price="+2$/mo"
+        [isChecked]="data.largerStorage"
+        (handleClick)="handleChangeData(PropertiesNames.largerStorage, $event)"
+      />
+      <app-add-on
+        label="Customizable profile"
+        description="Custom theme on your profile"
+        price="+3$/mo"
+        [isChecked]="data.customizableProfile"
+        (handleClick)="
+          handleChangeData(PropertiesNames.customizableProfile, $event)
+        "
+      />
+    </section>
+  </ng-container>
+
+  <ng-container *ngSwitchCase="4"> </ng-container>
+
   <div>
-    <app-next-button
+    <app-button
       label="Go Back"
       class="go-back-button"
       (click)="previousStep()"
       *ngIf="formState !== 1"
     />
-    <app-next-button
+    <app-button
       label="Next Step"
       class="next-step-button"
       (click)="nextStep()"
+      *ngIf="formState !== 4"
     />
   </div>
 </section>

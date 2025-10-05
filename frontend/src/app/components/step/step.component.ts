@@ -14,26 +14,13 @@ import { PropertiesNames } from 'src/app/enums/localStorage.enums';
 export class StepComponent {
   constructor(private localStorageService: LocalStorageService, private formService: FormService) { }
 
-  ngOnInit() {
-    this.localStorageService.init();
-  }
-
   formState: state = this.localStorageService.getStateFromLocalStorage();
   steps = STEPS_LIST;
   billingTypes = billingTypes;
-  plantTypes = planTypes;
+  planTypes = planTypes;
   PropertiesNames = PropertiesNames;
 
-  data: Form = {
-    name: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.name) ?? '',
-    email: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.email) ?? '',
-    phoneNumber: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.phoneNumber) ?? '',
-    planType: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.planType) as billingTypes ?? billingTypes.monthly,
-    plan: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.plan) as planTypes ?? this.plantTypes.arcade,
-    onlineService: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.onlineService) ?? false,
-    largerStorage: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.largerStorage) ?? false,
-    customizableProfile: this.localStorageService.getPropertyFromLocalstorage(PropertiesNames.customizableProfile) ?? false,
-  };
+  data: Form = this.localStorageService.getAllProperties();
 
   inputNameMessage: string | null = null;
   inputEmailMessage: string | null = null;
@@ -41,81 +28,71 @@ export class StepComponent {
 
   isYearly: boolean = this.data.planType === billingTypes.yearly;
 
-  isCheckedCheckbox1: boolean = true;
-  isCheckedCheckbox2: boolean = false;
-  isCheckedCheckbox3: boolean = false;
-
-  toggleCheckbox(number: number) {
+  toggleCheckbox(number: 1 | 2 | 3) {
     switch (number) {
-      case 1: return this.handleChangeCheckboxes(1);
-      case 2: return this.handleChangeCheckboxes(2);
-      case 3: return this.handleChangeCheckboxes(3);
-      default: {
-        console.log('Invalid checkbox number');
-      }
+      case 1: return this.handleChangeData(PropertiesNames.plan, planTypes.arcade);
+      case 2: return this.handleChangeData(PropertiesNames.plan, planTypes.advanced);
+      case 3: return this.handleChangeData(PropertiesNames.plan, planTypes.pro);
     }
   }
 
   handleChangeData<K extends PropertiesNames>(property: K, newValue: Form[K]) {
     this.data[property] = newValue;
     this.localStorageService.savePropertyToLocalStorage(property, newValue);
+    this.validateInsertedData();
+    console.log(property, newValue);
   }
 
-  handleChangeCheckboxes(id: number) {
-    switch (id) {
-      case 1: {
-        this.isCheckedCheckbox1 = !this.isCheckedCheckbox1;
-        this.isCheckedCheckbox2 = false;
-        this.isCheckedCheckbox3 = false;
-        console.log("checkbox 1 : ", this.isCheckedCheckbox1);
-        this.handleChangeData(PropertiesNames.plan, planTypes.arcade);
-        break;
-      };
-      case 2: {
-        this.isCheckedCheckbox2 = !this.isCheckedCheckbox2;
-        this.isCheckedCheckbox1 = false;
-        this.isCheckedCheckbox3 = false;
-        console.log("checkbox 2 : ", this.isCheckedCheckbox2);
-        this.handleChangeData(PropertiesNames.plan, planTypes.pro);
-        break;
-      };
-      case 3: {
-        this.isCheckedCheckbox3 = !this.isCheckedCheckbox3;
-        this.isCheckedCheckbox1 = false;
-        this.isCheckedCheckbox2 = false;
-        console.log("checkbox 3 : ", this.isCheckedCheckbox3);
-        this.handleChangeData(PropertiesNames.plan, planTypes.advanced);
-        break;
-      };
-      default: {
-        console.log('Invalid checkbox id');
-      }
-    }
-  }
 
   validateInsertedData(): boolean {
     switch (this.formState) {
       case 1: {
+        const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,50}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        const phoneRegex = /^(\+?\d{1,3}[- ]?)?\d{9}$/;
+
         if (!this.data.name.trim()) {
           this.inputNameMessage = "Enter name";
+          return false;
+        } else if (!nameRegex.test(this.data.name.trim())) {
+          this.inputNameMessage = "Enter a valid name";
+          return false;
+        } else {
+          this.inputNameMessage = null;
         }
+
         if (!this.data.email.trim()) {
           this.inputEmailMessage = "Enter email";
-        };
-        if (!this.data.phoneNumber.trim()) {
+          return false;
+        } else if (!emailRegex.test(this.data.email.trim())) {
+          this.inputEmailMessage = "Enter a valid email address";
+          return false;
+        } else {
+          this.inputEmailMessage = null;
+        }
+
+        if (!this.data.phoneNumber) {
           this.inputPhoneNumberMessage = "Enter phone number";
           return false;
+        } else if (!phoneRegex.test(this.data.phoneNumber)) {
+          this.inputPhoneNumberMessage = "Enter a valid phone number";
+          return false;
+        } else {
+          this.inputPhoneNumberMessage = null;
         }
-        break;
-      };
+
+        return true;
+      }
+
       case 2: {
         if (!this.data.plan) return false;
         break;
-      };
-      default: return true;
+      }
     }
+
     return true;
   }
+
 
   nextStep() {
     if (!this.validateInsertedData()) {
