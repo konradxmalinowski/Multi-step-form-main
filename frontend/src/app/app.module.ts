@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { CheckboxComponent } from './components/radio-button/radio-button.component';
 import { InputComponent } from './components/input/input.component';
 import { StepComponent } from './components/step/step.component';
 import { HttpClientModule } from '@angular/common/http';

@@ -53,7 +53,7 @@
       description="You have the option of monthly or yearly billing"
     />
     <div class="checkboxes">
-      <app-checkbox
+      <app-radio-button
         label="Arcade"
         icon="../../../assets/images/icon-arcade.svg"
         [price]="data.planType === billingTypes.monthly ? '$9/mo' : '$90/yr'"
@@ -61,7 +61,7 @@
         (click)="toggleCheckbox(1)"
         [isChecked]="data.plan === planTypes.arcade"
       />
-      <app-checkbox
+      <app-radio-button
         label="Advanced"
         icon="../../../assets/images/icon-advanced.svg"
         [price]="data.planType === billingTypes.monthly ? '$12/mo' : '$120/yr'"
@@ -69,7 +69,7 @@
         (click)="toggleCheckbox(2)"
         [isChecked]="data.plan === planTypes.advanced"
       />
-      <app-checkbox
+      <app-radio-button
         label="Pro"
         icon="../../../assets/images/icon-pro.svg"
         [price]="data.planType === billingTypes.monthly ? '$15/mo' : '$150/yr'"
