@@ -1,0 +1,30 @@
+<div class="checkbox-container">
+  <label class="ios-checkbox">
+    <input
+      type="checkbox"
+      [checked]="isChecked"
+      (change)="handleClickCheckbox($event)"
+      [name]="label"
+      [id]="label"
+    />
+    <div class="checkbox-wrapper">
+      <div class="checkbox-bg"></div>
+      <svg class="checkbox-icon" viewBox="0 0 24 24" fill="none">
+        <path
+          class="check-path"
+          d="M4 12L10 18L20 6"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        ></path>
+      </svg>
+    </div>
+  </label>
+</div>
+
+<div>
+  <p class="dark-blue">{{ label }}</p>
+  <p class="grey">{{ description }}</p>
+</div>
+<p class="light-blue">{{ price }}</p>

@@ -1,0 +1,127 @@
+@use "../../../styles/variables.scss" as v;
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 30px;
+  width: 400px;
+  height: 100px;
+  border: 1px solid v.$blue-950;
+  border-radius: 9px;
+  padding-inline: 40px;
+  cursor: pointer;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.dark-blue {
+  color: v.$blue-950;
+  font-weight: 600;
+}
+
+.grey {
+  color: v.$grey-500;
+}
+
+.light-blue {
+  color: v.$purple-600;
+}
+
+.checkbox-container {
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.ios-checkbox {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  width: 28px;
+  height: 28px;
+}
+
+.ios-checkbox input {
+  display: none;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  transition: transform 0.2s ease;
+}
+
+.checkbox-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  border: 2px solid v.$purple-600;
+  background: v.$white;
+  transition: all 0.2s ease;
+}
+
+.checkbox-icon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 80%;
+  height: 80%;
+  color: v.$white;
+  transform: scale(0);
+  transition: all 0.2s ease;
+}
+
+.check-path {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  transition: stroke-dashoffset 0.3s ease 0.1s;
+}
+
+.ios-checkbox input:checked + .checkbox-wrapper .checkbox-bg {
+  background: v.$purple-600;
+  border-color: v.$purple-600;
+}
+
+.ios-checkbox input:checked + .checkbox-wrapper .checkbox-icon {
+  transform: scale(1);
+}
+
+.ios-checkbox input:checked + .checkbox-wrapper .check-path {
+  stroke-dashoffset: 0;
+}
+
+.ios-checkbox:hover .checkbox-wrapper {
+  transform: scale(1.05);
+}
+
+.ios-checkbox:active .checkbox-wrapper {
+  transform: scale(0.95);
+}
+
+.ios-checkbox input:focus + .checkbox-wrapper .checkbox-bg {
+  box-shadow: 0 0 0 4px v.$blue-300;
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.ios-checkbox input:checked + .checkbox-wrapper {
+  animation: bounce 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
