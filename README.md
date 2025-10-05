@@ -1,67 +1,186 @@
-## 1. Przygotowanie środowiska
+## Multi‑Step Form (Angular + Spring Boot) ✨
 
-- Upewnij się, że masz zainstalowanego Dockera.
-- PowerShell uruchamiaj normalnie, dopiero jeśli chcesz startować lokalny serwis PostgreSQL w Windows, uruchom **jako Administrator**.
+Elegant full‑stack starter demonstrating a multi‑step form with a modern Angular UI and a robust Spring Boot API, backed by PostgreSQL. Developer‑friendly, Docker‑ready, and MIT‑licensed.
+
+— Built with care by Konrad Malinowski.
 
 ---
 
-## 2. Tworzenie i uruchamianie kontenera PostgreSQL w Dockerze
+## Badges
 
-### 2.1 Usuń stary kontener (jeśli istnieje)
+[![Made with Angular](https://img.shields.io/badge/Frontend-Angular-DD0031?logo=angular&logoColor=white)](https://angular.dev)
+[![Spring Boot](https://img.shields.io/badge/Backend-Spring%20Boot-6DB33F?logo=springboot&logoColor=white)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/DB-PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-000000.svg)](LICENSE)
 
-```powershell
-docker rm postgress
+---
+
+## Table of Contents 🧭
+
+- Overview
+- Features
+- Tech Stack
+- Architecture
+- Quick Start
+- Configuration
+- Backend (`backend/`)
+- Frontend (`frontend/`)
+- PostgreSQL with Docker
+- Troubleshooting
+- Contributing
+- License
+
+---
+
+## Overview 📦
+
+- **Frontend**: Angular app for a multi‑step form UX
+- **Backend**: Spring Boot REST API to process and persist data
+- **Database**: PostgreSQL (Dockerized for local dev)
+
+---
+
+## Features 🌟
+
+- Multi‑step form with smooth navigation
+- Clear separation of frontend and backend concerns
+- Local Postgres in Docker for fast setup
+- Environment‑based configuration
+- Developer‑friendly scripts
+
+---
+
+## Tech Stack 🧰
+
+- **Frontend**: Angular, TypeScript, RxJS
+- **Backend**: Java 17+, Spring Boot
+- **Database**: PostgreSQL
+- **Build/Tools**: Maven, Node.js, npm
+
+---
+
+## Architecture 🏗️
+
+```
+[ Angular (frontend) ]  ⇄  [ Spring Boot (backend) ]  ⇄  [ PostgreSQL ]
+        UI/UX                     REST API                     Data
 ```
 
-- Usuwa kontener o nazwie `postgress`, aby uniknąć konfliktu nazw.
+---
 
-### 2.2 Uruchom nowy kontener z PostgreSQL
+## Quick Start 🚀
+
+### 1) Prerequisites
+
+- Node.js 18+ and npm
+- Java 17+
+- Maven
+- Docker (for Postgres)
+
+### 2) Start the database
+
+If you do not have a local Postgres, run it via Docker:
 
 ```powershell
 docker run --name postgress -e POSTGRES_PASSWORD=mysecretpassword -p 5431:5432 -d postgres
 ```
 
-- `--name postgress` – nazwa kontenera.
-- `-e POSTGRES_PASSWORD=mysecretpassword` – ustawia hasło dla użytkownika `postgres`.
-- `-p 5431:5432` – mapuje port 5432 z kontenera na port 5431 lokalnego komputera.
-- `-d` – uruchamia kontener w tle (detached mode).
-- `postgres` – oficjalny obraz PostgreSQL z Docker Hub.
+### 3) Run the backend
 
-### 2.3 Sprawdzenie statusu kontenera
+```powershell
+cd backend
+mvn spring-boot:run
+```
+
+API: `http://localhost:8080/`
+
+### 4) Run the frontend
+
+```powershell
+cd frontend
+npm install
+npm start
+# or: npx ng serve
+```
+
+App: `http://localhost:4200/`
+
+---
+
+## Configuration ⚙️
+
+Common backend properties (examples):
+
+```
+SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5431/postgres
+SPRING_DATASOURCE_USERNAME=postgres
+SPRING_DATASOURCE_PASSWORD=mysecretpassword
+```
+
+Set them in `application.properties`/`application.yml` or as environment variables.
+
+---
+
+## Backend 📡 (`backend/`)
+
+- Run: `mvn spring-boot:run`
+- Config: `src/main/resources/application.properties` or environment variables
+- Dependencies: see `pom.xml`
+
+---
+
+## Frontend 🎨 (`frontend/`)
+
+- Install: `npm install`
+- Dev server: `npm start` or `npx ng serve`
+- Config: see `angular.json`, `src/environments/`
+
+---
+
+## PostgreSQL with Docker 🐘
+
+### Remove an old container (if it exists)
+
+```powershell
+docker rm postgress
+```
+
+### Run a new Postgres container
+
+```powershell
+docker run --name postgress -e POSTGRES_PASSWORD=mysecretpassword -p 5431:5432 -d postgres
+```
+
+- `--name postgress` – container name
+- `-e POSTGRES_PASSWORD=mysecretpassword` – sets the password for user `postgres`
+- `-p 5431:5432` – maps container port 5432 to local port 5431
+- `-d` – detached mode
+- `postgres` – official PostgreSQL image from Docker Hub
+
+### Check container status
 
 ```powershell
 docker ps
 ```
 
-- Powinien pokazać kontener **Up**, czyli działający.
+You should see the container in the `Up` state.
 
----
-
-## 3. Łączenie się z bazą PostgreSQL w kontenerze
-
-### 3.1 Wejście do kontenera
+### Connect to Postgres inside the container
 
 ```powershell
 docker exec -it postgress psql -U postgres
 ```
 
-- `exec -it` – pozwala wejść do kontenera interaktywnie.
-- `psql -U postgres` – loguje do PostgreSQL jako superuser `postgres`.
-
-### 3.2 Przykładowe komendy w `psql`
+Common `psql` commands:
 
 ```sql
-\l          -- lista baz danych
-\c nazwa    -- połączenie z bazą o nazwie 'nazwa'
-\dt         -- lista tabel w aktualnej bazie
-\q          -- wyjście z psql
+\l          -- list databases
+\c name     -- connect to database 'name'
+\dt         -- list tables in current database
+\q          -- quit psql
 ```
 
----
-
-## 4. Mapowanie portów i dostęp z zewnątrz
-
-- Skonfigurowany port 5431 pozwala na łączenie się z bazą np. z pgAdmina:
+### External access (e.g., pgAdmin)
 
 ```
 Host: localhost
@@ -70,37 +189,38 @@ User: postgres
 Password: mysecretpassword
 ```
 
----
-
-## 5. Dodatkowe przydatne komendy Docker
-
-- Zatrzymanie kontenera:
+### Additional Docker commands
 
 ```powershell
-docker stop postgress
+docker stop postgress   # stop
+docker start postgress  # start
+docker rm postgress     # remove
+docker ps -a            # list all
 ```
 
-- Uruchomienie zatrzymanego kontenera:
+Notes:
 
-```powershell
-docker start postgress
-```
-
-- Usunięcie kontenera:
-
-```powershell
-docker rm postgress
-```
-
-- Sprawdzenie wszystkich kontenerów (aktywnych i zakończonych):
-
-```powershell
-docker ps -a
-```
+- `POSTGRES_PASSWORD` must be set when first running a new container.
+- For multiple instances, use unique `--name` and `-p` port mappings.
 
 ---
 
-## 6. Uwagi
+## Troubleshooting 🧩
 
-- Zmienna środowiskowa **POSTGRES_PASSWORD** musi być zawsze ustawiona przy pierwszym uruchomieniu kontenera z nową bazą.
-- Jeśli chcesz mieć różne kontenery PostgreSQL, nadaj im różne nazwy (`--name`) i różne porty lokalne (`-p`).
+- Port in use: change the left side of `-p 5431:5432` (e.g., `5435:5432`).
+- Cannot connect from backend: verify `SPRING_DATASOURCE_URL` host and port.
+- Frontend cannot reach API: check CORS and that backend runs on `:8080`.
+
+---
+
+## Contributing 🤝
+
+Issues and PRs are welcome. Please keep changes focused and documented.
+
+---
+
+## License 📄
+
+MIT — see `LICENSE` for details.
+
+---
