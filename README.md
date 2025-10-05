@@ -2,8 +2,6 @@
 
 Elegant full‑stack starter demonstrating a multi‑step form with a modern Angular UI and a robust Spring Boot API, backed by PostgreSQL. Developer‑friendly, Docker‑ready, and MIT‑licensed.
 
-— Built with care by Konrad Malinowski.
-
 ---
 
 ## Badges
